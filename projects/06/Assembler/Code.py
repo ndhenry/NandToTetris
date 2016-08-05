@@ -20,8 +20,8 @@ class Code(object):
         'M-1': '1110010', 'D+M': '1000010', 'D-M': '1010011', 'M-D': '1000111',
         'D&M': '1000000', 'D|M': '1010101'
     }
-    _d_codes = ['', 'M', 'D', 'MD', 'A', 'AM', 'AD', 'AMD']
-    _j_codes = ['', 'JGT', 'JEQ', 'JGE', 'JLT', 'JNE', 'JLE', 'JMP']
+    _d_codes = [' ', 'M', 'D', 'MD', 'A', 'AM', 'AD', 'AMD']
+    _j_codes = [' ', 'JGT', 'JEQ', 'JGE', 'JLT', 'JNE', 'JLE', 'JMP']
 
     def comp(self, c_string):
         return self._c_codes[c_string]
@@ -33,7 +33,7 @@ class Code(object):
         return binary_repr(self._j_codes.index(j_string), 3)
 
     def a_gen(self, address):
-        return '0' + address
+        return '0' + binary_repr(int(address), 15)
 
-    def c_gen(self, comp, dest, jump):
+    def c_gen(self, dest, comp, jump):
         return '111' + self.comp(comp) + self.dest(dest) + self.jump(jump)
